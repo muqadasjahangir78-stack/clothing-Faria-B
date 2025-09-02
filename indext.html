@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Brand — Clothing & Apparel</title>
+  <meta name="description" content="Shop the latest styles in clothing, shoes, and accessories." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff; --ink:#0f172a; --muted:#64748b; --brand:#111827; --brand-2:#e11d48;
+      --card:#f8fafc; --border:#e5e7eb;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    button{font:inherit}
+
+    /* Header */
+    .topbar{background:#0b1220;color:#fff;padding:.4rem 1rem;text-align:center;font-size:.9rem}
+    .header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border)}
+    .container{max-width:1200px;margin:0 auto;padding:0 1rem}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:1rem}
+    .brand{font-weight:800;letter-spacing:.5px}
+    .nav-links{display:flex;gap:1rem;align-items:center}
+    .nav-links a{padding:.5rem .75rem;border-radius:.5rem}
+    .nav-links a:hover{background:var(--card)}
+    .icons{display:flex;gap:.5rem}
+    .icon-btn{border:1px solid var(--border);background:#fff;border-radius:.75rem;padding:.45rem .6rem}
+    .hamburger{display:none;border:1px solid var(--border);background:#fff;border-radius:.75rem;padding:.5rem}
+
+    /* Mobile menu */
+    .mobile-menu{display:none;border-top:1px solid var(--border);padding:0 1rem 1rem}
+    .mobile-menu a{display:block;padding:.75rem 0;border-bottom:1px dashed var(--border)}
+    .mobile-open .mobile-menu{display:block}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;padding:2rem 0}
+    .badge{display:inline-block;background:#ecfeff;color:#0c4a6e;border:1px solid #22d3ee;padding:.25rem .5rem;border-radius:999px;font-size:.75rem;margin-bottom:.75rem}
+    .hero h1{font-size:clamp(2rem,3.5vw,3rem);line-height:1.15;margin:.25rem 0 1rem}
+    .hero p{color:var(--muted);max-width:50ch}
+    .cta{display:flex;gap:.75rem;margin-top:1rem}
+    .btn{border:none;border-radius:.75rem;padding:.75rem 1rem;font-weight:600;cursor:pointer}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-outline{background:#fff;border:1px solid var(--ink)}
+    .hero-media{position:relative;overflow:hidden;border-radius:1.25rem}
+    .hero-media img{aspect-ratio:16/10;object-fit:cover}
+    .hero-tag{position:absolute;bottom:12px;left:12px;background:#ffffffd9;padding:.35rem .6rem;border-radius:.5rem;font-size:.85rem}
+
+    /* Categories */
+    .section{padding:2.5rem 0}
+    .section h2{font-size:1.6rem;margin:0 0 1rem}
+    .grid{display:grid;gap:1rem}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .category-card{position:relative;overflow:hidden;border-radius:1rem}
+    .category-card img{height:220px;object-fit:cover}
+    .category-card .label{position:absolute;inset:auto 12px 12px 12px;background:#ffffffd9;padding:.5rem .75rem;border-radius:.5rem;font-weight:600}
+
+    /* Products */
+    .filters{display:flex;flex-wrap:wrap;gap:.75rem;margin:.5rem 0 1rem}
+    .chip{border:1px solid var(--border);padding:.35rem .6rem;border-radius:999px;background:#fff;cursor:pointer}
+    .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+    .product{background:var(--card);border:1px solid var(--border);border-radius:1rem;overflow:hidden;display:flex;flex-direction:column}
+    .product img{aspect-ratio:1/1;object-fit:cover}
+    .product .info{padding:.75rem}
+    .price{display:flex;align-items:center;gap:.5rem}
+    .price .old{color:var(--muted);text-decoration:line-through;font-size:.9rem}
+    .add{margin-top:.5rem;width:100%;border:1px solid var(--ink);background:#fff;border-radius:.6rem;padding:.6rem;cursor:pointer;font-weight:600}
+    .add:hover{background:#111827;color:#fff}
+
+    /* Banner */
+    .banner{position:relative;border-radius:1.25rem;overflow:hidden}
+    .banner img{width:100%;height:360px;object-fit:cover;filter:contrast(1.05)}
+    .banner .content{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:#fff;background:linear-gradient(180deg, #00000055, #00000090)}
+    .banner .content h3{font-size:2rem;margin:.2rem 0}
+
+    /* Newsletter */
+    .newsletter{background:#0b1220;color:#cbd5e1;border-radius:1.25rem;padding:1.5rem}
+    .newsletter h3{color:#fff;margin:.2rem 0 1rem}
+    .newsletter form{display:flex;gap:.5rem;flex-wrap:wrap}
+    .newsletter input{flex:1;min-width:220px;border:1px solid #334155;background:#0f172a;color:#fff;border-radius:.6rem;padding:.7rem}
+    .newsletter button{border:none;background:#22c55e;color:#0b1220;font-weight:700;border-radius:.6rem;padding:.7rem 1rem;cursor:pointer}
+
+    /* Footer */
+    footer{margin-top:2.5rem;border-top:1px solid var(--border);padding:1.5rem 0;color:var(--muted);font-size:.95rem}
+    .footer-grid{display:grid;gap:1rem;grid-template-columns:2fr repeat(3,1fr)}
+    .ft-col a{display:block;color:inherit;padding:.3rem 0}
+
+    /* Toast */
+    .toast{position:fixed;right:16px;bottom:16px;background:#111827;color:#fff;padding:.75rem 1rem;border-radius:.75rem;opacity:0;transform:translateY(12px);transition:.25s;pointer-events:none}
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr;gap:1rem}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .hamburger{display:inline-block}
+      .nav-links{display:none}
+      .icons{margin-left:auto}
+      .mobile-open .nav-links{display:flex}
+    }
+    @media (max-width: 560px){
+      .grid-3{grid-template-columns:1fr}
+      .banner img{height:260px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar">Free shipping on orders over $100 • Easy 14-day returns</div>
+
+  <!-- Header / Navigation -->
+  <header class="header">
+    <div class="container">
+      <nav class="nav">
+        <button class="hamburger" id="menuBtn" aria-label="Toggle menu">☰</button>
+        <a href="#" class="brand">YOUR <span style="color:var(--brand-2)">BRAND</span></a>
+
+        <div class="nav-links" id="navLinks" role="navigation" aria-label="Primary">
+          <a href="#new">New</a>
+          <a href="#women">Women</a>
+          <a href="#men">Men</a>
+          <a href="#kids">Kids</a>
+          <a href="#sale" style="color:var(--brand-2);font-weight:700">Sale</a>
+        </div>
+
+        <div class="icons">
+          <button class="icon-btn" aria-label="Search">🔍</button>
+          <button class="icon-btn" aria-label="Account">👤</button>
+          <button class="icon-btn" aria-label="Cart" id="cartBtn">🛒</button>
+        </div>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="#new">New</a>
+        <a href="#women">Women</a>
+        <a href="#men">Men</a>
+        <a href="#kids">Kids</a>
+        <a href="#sale">Sale</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="container hero">
+    <div>
+      <span class="badge">Summer ‘25</span>
+      <h1>Elevate Your Everyday — Timeless Fits, Modern Feel.</h1>
+      <p>Discover premium essentials crafted for comfort and style. From casual tees to statement outerwear, build your wardrobe with pieces that last.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#shop">Shop Now</a>
+        <a class="btn btn-outline" href="#lookbook">View Lookbook</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop" alt="Model wearing new summer collection">
+      <span class="hero-tag">New Drop • Linen Collection</span>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section container" id="categories">
+    <h2>Shop by Category</h2>
+    <div class="grid grid-3">
+      <a class="category-card" href="#women">
+        <img src="https://images.unsplash.com/photo-1520975922321-4bda2d51b6e3?q=80&w=1400&auto=format&fit=crop" alt="Women's collection" />
+        <span class="label">Women</span>
+      </a>
+      <a class="category-card" href="#men">
+        <img src="https://images.unsplash.com/photo-1520975693416-35a2c0f3aa8f?q=80&w=1400&auto=format&fit=crop" alt="Men's collection" />
+        <span class="label">Men</span>
+      </a>
+      <a class="category-card" href="#accessories">
+        <img src="https://images.unsplash.com/photo-1520974710219-4e27b48ff24e?q=80&w=1400&auto=format&fit=crop" alt="Accessories" />
+        <span class="label">Accessories</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="section container" id="shop">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <h2>Featured Products</h2>
+      <div class="filters">
+        <span class="chip active">All</span>
+        <span class="chip">T-Shirts</span>
+        <span class="chip">Hoodies</span>
+        <span class="chip">Denim</span>
+        <span class="chip">Shoes</span>
+      </div>
+    </div>
+
+    <div class="grid grid-3">
+      <!-- Product card -->
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1200&auto=format&fit=crop" alt="Essential Tee" />
+        <div class="info">
+          <h3 style="margin:.2rem 0 .4rem">Essential Tee</h3>
+          <div class="price"><strong>$29</strong><span class="old">$39</span></div>
+          <button class="add" data-item="Essential Tee">Add to cart</button>
+        </div>
+      </article>
+
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1548883354-88dcf824b3f2?q=80&w=1200&auto=format&fit=crop" alt="Classic Denim Jacket" />
+        <div class="info">
+          <h3 style="margin:.2rem 0 .4rem">Classic Denim Jacket</h3>
+          <div class="price"><strong>$89</strong></div>
+          <button class="add" data-item="Denim Jacket">Add to cart</button>
+        </div>
+      </article>
+
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1520975619010-34d6dc0d5a76?q=80&w=1200&auto=format&fit=crop" alt="Minimal Sneakers" />
+        <div class="info">
+          <h3 style="margin:.2rem 0 .4rem">Minimal Sneakers</h3>
+          <div class="price"><strong>$69</strong></div>
+          <button class="add" data-item="Sneakers">Add to cart</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Collection Banner -->
+  <section class="section container">
+    <div class="banner">
+      <img src="https://images.unsplash.com/photo-1520974735194-9b1d0e3c2f27?q=80&w=2000&auto=format&fit=crop" alt="Limited collection banner" />
+      <div class="content">
+        <div>
+          <p style="letter-spacing:.2em;text-transform:uppercase;margin:0 0 .5rem">Limited Release</p>
+          <h3>Monochrome Capsule</h3>
+          <a href="#shop" class="btn btn-primary" style="margin-top:.75rem">Shop Capsule</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="container">
+    <div class="newsletter">
+      <h3>Join the Club & Save 10%</h3>
+      <p>Subscribe for early access to drops, exclusive offers, and style tips.</p>
+      <form onsubmit="event.preventDefault(); showToast('Thanks! Check your inbox.'); this.reset();">
+        <input type="email" required placeholder="you@example.com" aria-label="Email address" />
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">YOUR <span style="color:var(--brand-2)">BRAND</span></div>
+        <p style="max-width:45ch">Stylish, sustainable, and made to last. Designed with love and crafted with care.</p>
+      </div>
+      <div class="ft-col">
+        <strong>Shop</strong>
+        <a href="#women">Women</a>
+        <a href="#men">Men</a>
+        <a href="#kids">Kids</a>
+        <a href="#sale">Sale</a>
+      </div>
+      <div class="ft-col">
+        <strong>Help</strong>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Size Guide</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="ft-col">
+        <strong>Company</strong>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Stores</a>
+      </div>
+    </div>
+    <div class="container" style="margin-top:1rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <small>© <span id="year"></span> Your Brand. All rights reserved.</small>
+      <small>Terms • Privacy</small>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const header = document.querySelector('.header');
+    menuBtn?.addEventListener('click', () => {
+      document.body.classList.toggle('mobile-open');
+      mobileMenu.scrollIntoView({ block: 'nearest' });
+    });
+
+    // Cart toast + Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const toastEl = document.getElementById('toast');
+    function showToast(msg){
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      setTimeout(()=>toastEl.classList.remove('show'), 2000);
+    }
+    document.querySelectorAll('.add').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        const item = e.currentTarget.getAttribute('data-item') || 'Item';
+        showToast(`${item} added to cart`);
+      });
+    });
+  </script>
+</body>
+</html>
+
